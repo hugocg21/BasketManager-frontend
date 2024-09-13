@@ -1,0 +1,48 @@
+<div class="mb-4 flex items-center space-x-4">
+  <label for="sortAttribute" class="font-semibold text-[#E0E0E0]">Ordenar por:</label>
+  <select id="sortAttribute" (change)="onSortAttributeChange($event)" class="p-2 border rounded bg-[#1E1E1E] text-[#E0E0E0] border-[#333333]">
+    <option value="name">Nombre</option>
+    <option value="position">Posición</option>
+    <option value="jerseyNumber">Dorsal</option>
+    <option value="stats.points">Puntos</option>
+    <option value="stats.rebounds">Rebotes</option>
+    <option value="stats.assists">Asistencias</option>
+  </select>
+
+  <button (click)="toggleSortOrder()" class="bg-gradient-to-r from-[#1DB954] to-[#17a74b] text-black px-4 py-2 rounded shadow-md hover:bg-gradient-to-l hover:from-[#17a74b] hover:to-[#1DB954] transition duration-300">
+    <i [ngClass]="isAscending ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+  </button>
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-[40px]" *ngIf="players.length > 0; else noPlayers">
+  <div *ngFor="let player of players" class="bg-gradient-to-b from-[#1E1E1E] to-[#2C2C2C] rounded-lg shadow-lg p-6 relative transition-transform transform hover:scale-105 hover:shadow-2xl duration-300 my-[20px] text-[#E0E0E0]">
+    <img [src]="player.photoUrl" alt="{{player.name}}" class="w-32 h-32 rounded-full mx-auto -mt-16 border-4 border-[#121212] shadow-lg transition-transform duration-300 hover:scale-110">
+
+    <h2 class="text-center text-3xl font-extrabold mt-4">{{player.name}} #{{player.jerseyNumber}}</h2>
+    <p class="text-center text-[#B0B0B0] text-lg">{{player.position}}</p>
+
+    <div class="bg-[#333333] rounded-lg p-4 mt-4 shadow-inner">
+      <h3 class="font-semibold mb-2 text-center">Estadísticas por partido:</h3>
+      <ul class="space-y-2">
+        <li><i class="fas fa-basketball-ball text-[#FF7F50]"></i> Puntos: {{player.stats.points}}</li>
+        <li><i class="fas fa-hand-paper text-[#FFD700]"></i> Rebotes: {{player.stats.rebounds}}</li>
+        <li><i class="fas fa-share text-[#ADD8E6]"></i> Asistencias: {{player.stats.assists}}</li>
+      </ul>
+    </div>
+
+    <div class="absolute bottom-4 right-4 flex space-x-4">
+      <button (click)="editPlayer(player)" class="text-[#B0B0B0] hover:text-[#1DB954] transition-colors duration-300">
+        <i class="fas fa-pencil-alt"></i>
+      </button>
+      <button (click)="deletePlayer(player.id)" class="text-[#B0B0B0] hover:text-[#CF6679] transition-colors duration-300">
+        <i class="fas fa-trash"></i>
+      </button>
+    </div>
+
+    <a [routerLink]="['/player', player.id]" class="block text-center text-[#3EA6FF] mt-4 font-medium hover:underline">Ver perfil</a>
+  </div>
+</div>
+
+<ng-template #noPlayers>
+  <p class="text-center text-[#B0B0B0]">Cargando jugadores...</p>
+</ng-template>

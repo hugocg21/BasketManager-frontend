@@ -1,0 +1,21 @@
+<div *ngIf="player; else loading" class="bg-[#1E1E1E] p-6 rounded-lg shadow-lg text-[#E0E0E0]">
+  <div class="flex items-center mb-8">
+    <img [src]="player.photoUrl" alt="{{player.name}}" class="w-32 h-32 rounded-full border-4 border-[#121212] shadow-lg">
+    <div class="ml-6">
+      <h2 class="text-3xl font-bold">{{player.name}}</h2>
+      <p class="text-[#B0B0B0] text-xl">{{player.position}}</p>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <app-player-attendance *ngIf="attendance" [attendance]="attendance"></app-player-attendance>
+  </div>
+
+  <div class="mt-6">
+    <app-player-performance *ngIf="performance" [player]="player"></app-player-performance>
+  </div>
+</div>
+
+<ng-template #loading>
+  <p class="text-center text-[#B0B0B0]">Cargando datos del jugador...</p>
+</ng-template>

@@ -1,0 +1,11 @@
+<div class="bg-white p-4 rounded-lg shadow-lg">
+  <h2 class="text-xl font-bold mb-4">Estadísticas de Partidos</h2>
+  <div *ngFor="let stat of matchStats" class="mb-4 p-4 bg-gray-100 rounded-lg">
+    <h3 class="font-semibold">Partido {{stat.gameId}}</h3>
+    <ul class="list-disc ml-5">
+      <li>Puntos: {{stat.points}}</li>
+      <li>Faltas: {{stat.fouls}}</li>
+      <li>Asistencias: {{stat.assists}}</li>
+    </ul>
+  </div>
+</div>
